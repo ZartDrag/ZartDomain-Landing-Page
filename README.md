@@ -12,7 +12,3 @@ Open locally (PowerShell):
 ```powershell
 ii 'C:\Landing Page\index.html'
 ```
-
-Notes:
-- Links in the tiles are placeholder anchors (`#...`). Replace `href` values in `index.html` with real service URLs.
-- All images are stored under `assets/`. You can replace those SVGs with official logos if you have them.
