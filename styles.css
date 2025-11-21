@@ -1,0 +1,108 @@
+:root{
+  --bg:#0b0f14;
+  --card:#0f1720;
+  --muted:#9aa4b2;
+  --accent:#7dd3fc;
+  --card-shadow: 0 6px 18px rgba(2,6,23,0.6);
+  --radius:12px;
+  --text:#e6eef6;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:Inter,Segoe UI,system-ui,Roboto,Arial,sans-serif;
+  background:linear-gradient(180deg,var(--bg),#071019);
+  color:var(--text);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+.site-header{
+  text-align:center;
+  padding:40px 20px 18px;
+  position:relative;
+}
+.site-header h1{margin:0;font-size:clamp(1.6rem,2.4vw,2.25rem)}
+.subtitle{color:var(--muted);margin-top:6px}
+
+.grid{
+  display:grid;
+  gap:20px;
+  padding:28px;
+  width:100%;
+  max-width:1100px;
+  margin:0 auto 40px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+.card{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-decoration:none;
+  background:linear-gradient(180deg,var(--card), rgba(255,255,255,0.01));
+  padding:20px;
+  border-radius:var(--radius);
+  box-shadow:var(--card-shadow);
+  transition:transform .18s ease, box-shadow .18s ease;
+}
+.card:focus, .card:hover{transform:translateY(-6px);box-shadow:0 18px 32px rgba(2,6,23,0.7)}
+.logo{width:96px;height:96px;object-fit:contain;margin-bottom:14px}
+.logo-wrap{display:inline-flex;align-items:center;justify-content:center;padding:10px;border-radius:14px;background:rgba(255,255,255,0.02);margin-bottom:10px;box-shadow:0 6px 20px rgba(2,6,23,0.45);border:1px solid rgba(255,255,255,0.03);position:relative;overflow:visible}
+.logo-wrap::before{content:'';position:absolute;inset:8px;border-radius:10px;background:transparent;pointer-events:none;transition:background .18s ease,opacity .18s ease}
+.light-theme .logo-wrap{background:rgba(0,0,0,0.04);box-shadow:0 6px 18px rgba(12,23,36,0.06);border:1px solid rgba(0,0,0,0.06)}
+/* stronger inner overlay using a subtle radial gradient to darken center behind white logo text */
+.light-theme .logo-wrap::before{background:radial-gradient(circle at 50% 42%, rgba(0,0,0,0.14) 0%, rgba(0,0,0,0.09) 28%, rgba(0,0,0,0.04) 55%, rgba(0,0,0,0) 100%)}
+.card h2{margin:0;color:var(--text);font-size:1.05rem}
+.card p{margin:8px 0 0;color:var(--muted);font-size:0.92rem}
+
+.site-footer{color:var(--muted);text-align:center;padding:20px 10px 40px}
+
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+@media (min-width:1024px){
+  .grid{grid-template-columns:repeat(4,1fr)}
+}
+
+@media (min-width:640px) and (max-width:1023px){
+  .grid{grid-template-columns:repeat(2,1fr)}
+}
+
+@media (max-width:639px){
+  .grid{grid-template-columns:1fr;padding:16px}
+  .logo{width:84px;height:84px}
+}
+
+/* Theme toggle button */
+.theme-toggle{position:absolute;right:18px;top:18px}
+.theme-toggle button{
+  background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--text);padding:8px 10px;border-radius:10px;cursor:pointer;font-size:18px;line-height:1;transition:background .12s ease,transform .08s ease;
+}
+.theme-toggle button:hover{background:rgba(255,255,255,0.02);transform:translateY(-2px)}
+
+/* Light theme overrides */
+.light-theme{
+  --bg:linear-gradient(180deg,#f6f8fa,#eef2f6);
+  /* slightly off-white card so logo-wrap reads as an elevated white surface */
+  --card:#fbfdff;
+  --muted:#39404b;
+  --accent:#0ea5b7;
+  --card-shadow: 0 8px 20px rgba(12,23,36,0.06);
+  --text:#071827;
+}
+
+/* Smooth color transitions */
+/* Smooth color transitions */
+html,body,.card{transition:background-color .18s ease,color .18s ease}
+
+/* Light-mode logo improvements */
+.light-theme .card{background:linear-gradient(180deg,var(--card), rgba(255,255,255,0.5));}
+.light-theme .logo-wrap{
+  /* pure white surface for logos so colored marks read naturally */
+  background:#ffffff;
+  border:1px solid rgba(0,0,0,0.08);
+  box-shadow:0 10px 30px rgba(16,24,40,0.08);
+}
+.light-theme .logo{
+  /* subtle pop for logos on white */
+  filter: drop-shadow(0 3px 6px rgba(16,24,40,0.06)) saturate(1.05) contrast(1.02);
+}
