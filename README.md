@@ -1,6 +1,6 @@
 # Landing Page
 
-Simple dark-themed landing page with a responsive grid of service tiles.
+The landing page of ZartDoma.in
 
 Files:
 - `index.html` — main page
