@@ -16,27 +16,33 @@
 
   <main class="grid" role="main">
     <a class="card" href="https://pihole.zartdoma.in/admin" target="_blank" aria-describedby="pihole-desc">
-      <div class="logo-wrap"><img src="assets/pihole.svg" alt="Pi-hole logo" class="logo"></div>
+      <div class="logo-wrap"><img src="assets/pihole.svg" alt="Pi-hole logo" class="logo" data-dark-text></div>
       <h2>Pi-hole</h2>
-      <p id="pihole-desc" class="sr-only">Opens Pi-hole dashboard (placeholder link)</p>
+      <p id="pihole-desc" class="sr-only">Opens Pi-hole dashboard</p>
     </a>
 
     <a class="card" href="https://jellyfin.zartdoma.in/" target="_blank" aria-describedby="jellyfin-desc">
-      <div class="logo-wrap"><img src="assets/jellyfin.svg" alt="Jellyfin logo" class="logo"></div>
+      <div class="logo-wrap"><img src="assets/jellyfin.svg" alt="Jellyfin logo" class="logo" data-dark-text></div>
       <h2>Jellyfin</h2>
-      <p id="jellyfin-desc" class="sr-only">Opens Jellyfin (placeholder link)</p>
+      <p id="jellyfin-desc" class="sr-only">Opens Jellyfin</p>
     </a>
 
     <a class="card" href="https://nextcloud.zartdoma.in/" target="_blank" aria-describedby="nextcloud-desc">
       <div class="logo-wrap"><img src="assets/nextcloud.svg" alt="Nextcloud logo" class="logo"></div>
       <h2>Nextcloud</h2>
-      <p id="nextcloud-desc" class="sr-only">Opens Nextcloud (placeholder link)</p>
+      <p id="nextcloud-desc" class="sr-only">Opens Nextcloud</p>
     </a>
 
     <a class="card" href="https://healthcheck.zartdoma.in/" target="_blank" aria-describedby="uptimekuma-desc">
       <div class="logo-wrap"><img src="assets/uptimekuma.svg" alt="UptimeKuma logo" class="logo"></div>
       <h2>UptimeKuma</h2>
-      <p id="uptimekuma-desc" class="sr-only">Opens UptimeKuma (placeholder link)</p>
+      <p id="uptimekuma-desc" class="sr-only">Opens UptimeKuma</p>
+    </a>
+
+    <a class="card" href="https://portainer.zartdoma.in" target="_blank" aria-describedby="portainer-desc">
+      <div class="logo-wrap"><img src="assets/portainer.svg" alt="Portainer logo" class="logo" data-dark-text></div>
+      <h2>Portainer</h2>
+      <p id="portainer-desc" class="sr-only">Opens Portainer</p>
     </a>
   </main>
   <script>
@@ -48,6 +54,11 @@
         document.documentElement.classList.toggle('light-theme', isLight);
         btn.setAttribute('aria-pressed', String(isLight));
         btn.textContent = isLight ? '☀️' : '🌙';
+        // Swap Pi-hole logo based on theme
+        const piholeImg = document.querySelector('img[alt="Pi-hole logo"]');
+        if (piholeImg) {
+          piholeImg.src = isLight ? 'assets/pihole-light.svg' : 'assets/pihole.svg';
+        }
       };
 
       // initialize from localStorage or system preference
@@ -65,6 +76,11 @@
         localStorage.setItem(storageKey, theme);
         btn.setAttribute('aria-pressed', String(isLight));
         btn.textContent = isLight ? '☀️' : '🌙';
+        // Swap Pi-hole logo based on theme
+        const piholeImg = document.querySelector('img[alt="Pi-hole logo"]');
+        if (piholeImg) {
+          piholeImg.src = isLight ? 'assets/pihole-light.svg' : 'assets/pihole.svg';
+        }
       });
     })();
   </script>

@@ -106,3 +106,7 @@ html,body,.card{transition:background-color .18s ease,color .18s ease}
   /* subtle pop for logos on white */
   filter: drop-shadow(0 3px 6px rgba(16,24,40,0.06)) saturate(1.05) contrast(1.02);
 }
+/* Darken white text in specific logos to black in light mode */
+.light-theme .logo[data-dark-text]{
+  filter: drop-shadow(0 3px 6px rgba(16,24,40,0.06)) saturate(1.05) contrast(1.3) brightness(0.65);
+}
