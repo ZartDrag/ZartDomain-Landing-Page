@@ -1,11 +1,13 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Services - Landing</title>
+  <title>ZartDomain - Landing</title>
   <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
   <header class="site-header">
     <h1>zartdoma.in</h1>
@@ -44,9 +46,15 @@
       <h2>Portainer</h2>
       <p id="portainer-desc" class="sr-only">Opens Portainer</p>
     </a>
+
+    <a class="card" href="https://www.netdata.cloud/" target="_blank" aria-describedby="netdata-desc">
+      <div class="logo-wrap"><img src="assets/netdata.svg" alt="Netdata logo" class="logo"></div>
+      <h2>Netdata</h2>
+      <p id="netdata-desc" class="sr-only">Opens Netdata</p>
+    </a>
   </main>
   <script>
-    (function(){
+    (function () {
       const btn = document.getElementById('theme-toggle');
       const storageKey = 'theme';
       const apply = (theme) => {
@@ -63,14 +71,14 @@
 
       // initialize from localStorage or system preference
       const saved = localStorage.getItem(storageKey);
-      if(saved){
+      if (saved) {
         apply(saved);
       } else {
         const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
         apply(prefersLight ? 'light' : 'dark');
       }
 
-      btn.addEventListener('click', ()=>{
+      btn.addEventListener('click', () => {
         const isLight = document.documentElement.classList.toggle('light-theme');
         const theme = isLight ? 'light' : 'dark';
         localStorage.setItem(storageKey, theme);
@@ -85,4 +93,5 @@
     })();
   </script>
 </body>
+
 </html>
