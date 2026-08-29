@@ -18,13 +18,13 @@
 
   <main class="grid" role="main">
     <a class="card" href="https://pihole.zartdoma.in/admin" target="_blank" aria-describedby="pihole-desc">
-      <div class="logo-wrap"><img src="assets/pihole.svg" alt="Pi-hole logo" class="logo" data-dark-text></div>
+      <div class="logo-wrap"><img src="assets/pihole.svg" alt="Pi-hole logo" class="logo" data-light-src="assets/pihole-light.svg"></div>
       <h2>Pi-hole</h2>
       <p id="pihole-desc" class="sr-only">Opens Pi-hole dashboard</p>
     </a>
 
     <a class="card" href="https://jellyfin.zartdoma.in/" target="_blank" aria-describedby="jellyfin-desc">
-      <div class="logo-wrap"><img src="assets/jellyfin.svg" alt="Jellyfin logo" class="logo" data-dark-text></div>
+      <div class="logo-wrap"><img src="assets/jellyfin.svg" alt="Jellyfin logo" class="logo" data-light-src="assets/jellyfin-light.svg"></div>
       <h2>Jellyfin</h2>
       <p id="jellyfin-desc" class="sr-only">Opens Jellyfin</p>
     </a>
@@ -42,7 +42,7 @@
     </a>
 
     <a class="card" href="https://portainer.zartdoma.in" target="_blank" aria-describedby="portainer-desc">
-      <div class="logo-wrap"><img src="assets/portainer.svg" alt="Portainer logo" class="logo" data-dark-text></div>
+      <div class="logo-wrap"><img src="assets/portainer.svg" alt="Portainer logo" class="logo" data-light-src="assets/portainer-light.svg"></div>
       <h2>Portainer</h2>
       <p id="portainer-desc" class="sr-only">Opens Portainer</p>
     </a>
@@ -52,21 +52,30 @@
       <h2>Netdata</h2>
       <p id="netdata-desc" class="sr-only">Opens Netdata</p>
     </a>
+
+    <a class="card" href="https://audiobookshelf.zartdoma.in" target="_blank" aria-describedby="audiobookshelf-desc">
+      <div class="logo-wrap"><img src="assets/audiobookshelf.svg" alt="Audiobookshelf logo" class="logo"></div>
+      <h2>Audiobookshelf</h2>
+      <p id="audiobookshelf-desc" class="sr-only">Opens Audiobookshelf</p>
+    </a>
   </main>
   <script>
     (function () {
       const btn = document.getElementById('theme-toggle');
       const storageKey = 'theme';
+      const swapLogos = (isLight) => {
+        document.querySelectorAll('img[data-light-src]').forEach((img) => {
+          if (!img.dataset.darkSrc) img.dataset.darkSrc = img.getAttribute('src');
+          img.src = isLight ? img.dataset.lightSrc : img.dataset.darkSrc;
+        });
+      };
+
       const apply = (theme) => {
         const isLight = theme === 'light';
         document.documentElement.classList.toggle('light-theme', isLight);
         btn.setAttribute('aria-pressed', String(isLight));
         btn.textContent = isLight ? '☀️' : '🌙';
-        // Swap Pi-hole logo based on theme
-        const piholeImg = document.querySelector('img[alt="Pi-hole logo"]');
-        if (piholeImg) {
-          piholeImg.src = isLight ? 'assets/pihole-light.svg' : 'assets/pihole.svg';
-        }
+        swapLogos(isLight);
       };
 
       // initialize from localStorage or system preference
@@ -79,16 +88,10 @@
       }
 
       btn.addEventListener('click', () => {
-        const isLight = document.documentElement.classList.toggle('light-theme');
+        const isLight = !document.documentElement.classList.contains('light-theme');
         const theme = isLight ? 'light' : 'dark';
         localStorage.setItem(storageKey, theme);
-        btn.setAttribute('aria-pressed', String(isLight));
-        btn.textContent = isLight ? '☀️' : '🌙';
-        // Swap Pi-hole logo based on theme
-        const piholeImg = document.querySelector('img[alt="Pi-hole logo"]');
-        if (piholeImg) {
-          piholeImg.src = isLight ? 'assets/pihole-light.svg' : 'assets/pihole.svg';
-        }
+        apply(theme);
       });
     })();
   </script>
