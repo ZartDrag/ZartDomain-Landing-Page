@@ -4,44 +4,44 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>ZartDomain - Landing</title>
+  <title>Landing</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
   <header class="site-header">
-    <h1>zartdoma.in</h1>
+    <h1 id="site-domain"></h1>
     <div class="theme-toggle">
       <button id="theme-toggle" aria-pressed="false" aria-label="Toggle light and dark theme">🌙</button>
     </div>
   </header>
 
   <main class="grid" role="main">
-    <a class="card" href="https://pihole.zartdoma.in/admin" target="_blank" aria-describedby="pihole-desc">
+    <a class="card" data-subdomain="pihole" data-path="/admin" target="_blank" aria-describedby="pihole-desc">
       <div class="logo-wrap"><img src="assets/pihole.svg" alt="Pi-hole logo" class="logo" data-light-src="assets/pihole-light.svg"></div>
       <h2>Pi-hole</h2>
       <p id="pihole-desc" class="sr-only">Opens Pi-hole dashboard</p>
     </a>
 
-    <a class="card" href="https://jellyfin.zartdoma.in/" target="_blank" aria-describedby="jellyfin-desc">
+    <a class="card" data-subdomain="jellyfin" data-path="/" target="_blank" aria-describedby="jellyfin-desc">
       <div class="logo-wrap"><img src="assets/jellyfin.svg" alt="Jellyfin logo" class="logo" data-light-src="assets/jellyfin-light.svg"></div>
       <h2>Jellyfin</h2>
       <p id="jellyfin-desc" class="sr-only">Opens Jellyfin</p>
     </a>
 
-    <a class="card" href="https://nextcloud.zartdoma.in/" target="_blank" aria-describedby="nextcloud-desc">
+    <a class="card" data-subdomain="nextcloud" data-path="/" target="_blank" aria-describedby="nextcloud-desc">
       <div class="logo-wrap"><img src="assets/nextcloud.svg" alt="Nextcloud logo" class="logo"></div>
       <h2>Nextcloud</h2>
       <p id="nextcloud-desc" class="sr-only">Opens Nextcloud</p>
     </a>
 
-    <a class="card" href="https://healthcheck.zartdoma.in/" target="_blank" aria-describedby="uptimekuma-desc">
+    <a class="card" data-subdomain="healthcheck" data-path="/" target="_blank" aria-describedby="uptimekuma-desc">
       <div class="logo-wrap"><img src="assets/uptimekuma.svg" alt="UptimeKuma logo" class="logo"></div>
       <h2>UptimeKuma</h2>
       <p id="uptimekuma-desc" class="sr-only">Opens UptimeKuma</p>
     </a>
 
-    <a class="card" href="https://portainer.zartdoma.in" target="_blank" aria-describedby="portainer-desc">
+    <a class="card" data-subdomain="portainer" target="_blank" aria-describedby="portainer-desc">
       <div class="logo-wrap"><img src="assets/portainer.svg" alt="Portainer logo" class="logo" data-light-src="assets/portainer-light.svg"></div>
       <h2>Portainer</h2>
       <p id="portainer-desc" class="sr-only">Opens Portainer</p>
@@ -53,14 +53,26 @@
       <p id="netdata-desc" class="sr-only">Opens Netdata</p>
     </a>
 
-    <a class="card" href="https://audiobookshelf.zartdoma.in" target="_blank" aria-describedby="audiobookshelf-desc">
+    <a class="card" data-subdomain="audiobookshelf" target="_blank" aria-describedby="audiobookshelf-desc">
       <div class="logo-wrap"><img src="assets/audiobookshelf.svg" alt="Audiobookshelf logo" class="logo"></div>
       <h2>Audiobookshelf</h2>
       <p id="audiobookshelf-desc" class="sr-only">Opens Audiobookshelf</p>
     </a>
   </main>
+  <script src="config.js"></script>
   <script>
     (function () {
+      const domain = window.SITE && String(window.SITE.domain || "").trim().replace(/^[a-z]+:\/\//i, "").replace(/\/.*$/, "");
+      if (domain) {
+        document.title = domain + " - Landing";
+        const heading = document.getElementById("site-domain");
+        if (heading) heading.textContent = domain;
+        document.querySelectorAll("a[data-subdomain]").forEach((link) => {
+          const path = link.getAttribute("data-path") || "";
+          link.href = "https://" + link.getAttribute("data-subdomain") + "." + domain + path;
+        });
+      }
+
       const btn = document.getElementById('theme-toggle');
       const storageKey = 'theme';
       const swapLogos = (isLight) => {
